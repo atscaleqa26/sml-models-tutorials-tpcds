@@ -119,14 +119,16 @@ columns:
         sql: "DATE_TRUNC(d_date, MONTH)"
   - name: year_quarter
     data_type: string
-    sql: "cast(DATE_TRUNC('quarter', d_date) as date)"
+    sql: "TO_CHAR(DATE_TRUNC('quarter', d_date), 'YYYY\"Q\"Q')"
     dialects:
       - dialect: Snowflake
-        sql: "date(date_trunc('quarter', \"d_date\"))"
+        sql: "TO_CHAR(DATE_TRUNC('quarter', \"d_date\"), 'YYYY\"Q\"Q')"
       - dialect: DatabricksSQL
-        sql: "cast(DATE_TRUNC('quarter', d_date) as date)"
+        sql: "DATE_FORMAT(DATE_TRUNC('quarter', d_date), \"yyyy'Q'Q\")"
       - dialect: BigQuery
-        sql: "DATE_TRUNC(d_date, QUARTER)"
+        sql: "CONCAT(CAST(EXTRACT(YEAR FROM d_date) AS STRING), 'Q', CAST(EXTRACT(QUARTER FROM d_date) AS STRING))"
+      - dialect: Postgresql
+        sql: "TO_CHAR(DATE_TRUNC('quarter', d_date), 'YYYY\"Q\"Q')"
   - name: year_week
     data_type: string
     sql: "TO_CHAR(DATE_TRUNC('week', d_date), 'YYYY-MM-dd')"
