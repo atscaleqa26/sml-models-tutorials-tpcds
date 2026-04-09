@@ -149,3 +149,5 @@ columns:
         sql: "QUARTER(d_date)"
       - dialect: BigQuery
         sql: "EXTRACT(QUARTER FROM d_date)"
+      - dialect: Postgresql
+        sql: "EXTRACT(QUARTER FROM d_date)"  
