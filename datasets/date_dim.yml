@@ -118,7 +118,7 @@ columns:
       - dialect: BigQuery
         sql: "DATE_TRUNC(d_date, MONTH)"
   - name: year_quarter
-    data_type: date
+    data_type: string
     sql: "cast(DATE_TRUNC('quarter', d_date) as date)"
     dialects:
       - dialect: Snowflake
